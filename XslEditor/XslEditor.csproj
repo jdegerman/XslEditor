@@ -90,6 +90,12 @@
     <Compile Include="SelectSchemaForm.Designer.cs">
       <DependentUpon>SelectSchemaForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="TransformationResultForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TransformationResultForm.Designer.cs">
+      <DependentUpon>TransformationResultForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UIService.cs" />
     <Compile Include="XmlService.cs" />
     <EmbeddedResource Include="MainForm.resx">
@@ -110,6 +116,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SelectSchemaForm.resx">
       <DependentUpon>SelectSchemaForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TransformationResultForm.resx">
+      <DependentUpon>TransformationResultForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

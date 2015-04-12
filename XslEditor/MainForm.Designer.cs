@@ -31,7 +31,20 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.iconList = new System.Windows.Forms.ImageList(this.components);
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.mainMenu = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.xSLTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuApplyXSLT = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuToggleValidateInput = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuToggleValidateOutput = new System.Windows.Forms.ToolStripMenuItem();
             this.FirstContainer = new System.Windows.Forms.SplitContainer();
             this.tabSource = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -41,12 +54,23 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.SecondContainer = new System.Windows.Forms.SplitContainer();
             this.xslEditor = new ICSharpCode.TextEditor.TextEditorControl();
+            this.contextMenuEditor = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.xSLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuEditorInsertValueOf = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuEditorInsertTemplate = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuEditorInsertValueOfApplyTemplate = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuEditorApplyPrettyPrint = new System.Windows.Forms.ToolStripMenuItem();
             this.tabDestination = new System.Windows.Forms.TabControl();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.treeDestinationSchema = new System.Windows.Forms.TreeView();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.treeDestinationFile = new System.Windows.Forms.TreeView();
             this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.contextMenuDestination = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.menuDestinationGenerateXML = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuDestinationExpandAll = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuDestinationCollapseAll = new System.Windows.Forms.ToolStripMenuItem();
+            this.mainMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FirstContainer)).BeginInit();
             this.FirstContainer.Panel1.SuspendLayout();
             this.FirstContainer.Panel2.SuspendLayout();
@@ -58,9 +82,11 @@
             this.SecondContainer.Panel1.SuspendLayout();
             this.SecondContainer.Panel2.SuspendLayout();
             this.SecondContainer.SuspendLayout();
+            this.contextMenuEditor.SuspendLayout();
             this.tabDestination.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.tabPage5.SuspendLayout();
+            this.contextMenuDestination.SuspendLayout();
             this.SuspendLayout();
             // 
             // iconList
@@ -69,13 +95,108 @@
             this.iconList.TransparentColor = System.Drawing.Color.Transparent;
             this.iconList.Images.SetKeyName(0, "cog.png");
             // 
-            // menuStrip1
+            // mainMenu
             // 
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1014, 24);
-            this.menuStrip1.TabIndex = 0;
-            this.menuStrip1.Text = "menuStrip1";
+            this.mainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
+            this.xSLTToolStripMenuItem});
+            this.mainMenu.Location = new System.Drawing.Point(0, 0);
+            this.mainMenu.Name = "mainMenu";
+            this.mainMenu.Size = new System.Drawing.Size(1014, 24);
+            this.mainMenu.TabIndex = 0;
+            this.mainMenu.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newToolStripMenuItem,
+            this.toolStripMenuItem1,
+            this.toolStripMenuItem2,
+            this.toolStripSeparator1,
+            this.saveToolStripMenuItem,
+            this.saveAsToolStripMenuItem,
+            this.toolStripMenuItem3,
+            this.exitToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Text = "File";
+            // 
+            // newToolStripMenuItem
+            // 
+            this.newToolStripMenuItem.Name = "newToolStripMenuItem";
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.newToolStripMenuItem.Text = "New";
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(118, 6);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(121, 22);
+            this.toolStripMenuItem2.Text = "Open";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(118, 6);
+            // 
+            // saveToolStripMenuItem
+            // 
+            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.saveToolStripMenuItem.Text = "Save";
+            // 
+            // saveAsToolStripMenuItem
+            // 
+            this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.saveAsToolStripMenuItem.Text = "Save as...";
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(118, 6);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
+            // 
+            // xSLTToolStripMenuItem
+            // 
+            this.xSLTToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuApplyXSLT,
+            this.menuToggleValidateInput,
+            this.menuToggleValidateOutput});
+            this.xSLTToolStripMenuItem.Name = "xSLTToolStripMenuItem";
+            this.xSLTToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
+            this.xSLTToolStripMenuItem.Text = "XSLT";
+            // 
+            // menuApplyXSLT
+            // 
+            this.menuApplyXSLT.Name = "menuApplyXSLT";
+            this.menuApplyXSLT.ShortcutKeys = System.Windows.Forms.Keys.F5;
+            this.menuApplyXSLT.Size = new System.Drawing.Size(148, 22);
+            this.menuApplyXSLT.Text = "Apply";
+            this.menuApplyXSLT.Click += new System.EventHandler(this.menuApplyXSLT_Click);
+            // 
+            // menuToggleValidateInput
+            // 
+            this.menuToggleValidateInput.Name = "menuToggleValidateInput";
+            this.menuToggleValidateInput.Size = new System.Drawing.Size(148, 22);
+            this.menuToggleValidateInput.Text = "Validate input";
+            this.menuToggleValidateInput.Click += new System.EventHandler(this.menuToggleValidateInput_Click);
+            // 
+            // menuToggleValidateOutput
+            // 
+            this.menuToggleValidateOutput.Name = "menuToggleValidateOutput";
+            this.menuToggleValidateOutput.Size = new System.Drawing.Size(148, 22);
+            this.menuToggleValidateOutput.Text = "Validate result";
+            this.menuToggleValidateOutput.Click += new System.EventHandler(this.menuToggleValidateOutput_Click);
             // 
             // FirstContainer
             // 
@@ -134,7 +255,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 23);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(201, 633);
+            this.tabPage2.Size = new System.Drawing.Size(201, 609);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "XML";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -144,7 +265,7 @@
             this.treeSourceFile.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeSourceFile.Location = new System.Drawing.Point(3, 3);
             this.treeSourceFile.Name = "treeSourceFile";
-            this.treeSourceFile.Size = new System.Drawing.Size(195, 627);
+            this.treeSourceFile.Size = new System.Drawing.Size(195, 603);
             this.treeSourceFile.TabIndex = 2;
             // 
             // tabPage3
@@ -153,7 +274,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 23);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(201, 633);
+            this.tabPage3.Size = new System.Drawing.Size(201, 609);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
@@ -173,17 +294,65 @@
             // 
             this.SecondContainer.Panel2.Controls.Add(this.tabDestination);
             this.SecondContainer.Size = new System.Drawing.Size(799, 638);
-            this.SecondContainer.SplitterDistance = 595;
+            this.SecondContainer.SplitterDistance = 541;
             this.SecondContainer.TabIndex = 0;
             // 
             // xslEditor
             // 
+            this.xslEditor.ContextMenuStrip = this.contextMenuEditor;
             this.xslEditor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.xslEditor.IsReadOnly = false;
             this.xslEditor.Location = new System.Drawing.Point(0, 0);
             this.xslEditor.Name = "xslEditor";
-            this.xslEditor.Size = new System.Drawing.Size(593, 636);
+            this.xslEditor.Size = new System.Drawing.Size(539, 636);
             this.xslEditor.TabIndex = 0;
+            this.xslEditor.Text = "<?xml version=\"1.0\"?>\r\n<xsl:stylesheet version=\"1.0\" xmlns:xsl=\"http://www.w3.org" +
+    "/1999/XSL/Transform\">\r\n<xsl:template match=\"/\">\r\n\r\n</xsl:template>\r\n</xsl:styles" +
+    "heet>";
+            // 
+            // contextMenuEditor
+            // 
+            this.contextMenuEditor.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.xSLToolStripMenuItem,
+            this.menuEditorApplyPrettyPrint});
+            this.contextMenuEditor.Name = "contextMenuEditor";
+            this.contextMenuEditor.Size = new System.Drawing.Size(134, 48);
+            // 
+            // xSLToolStripMenuItem
+            // 
+            this.xSLToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuEditorInsertValueOf,
+            this.menuEditorInsertTemplate,
+            this.menuEditorInsertValueOfApplyTemplate});
+            this.xSLToolStripMenuItem.Name = "xSLToolStripMenuItem";
+            this.xSLToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.xSLToolStripMenuItem.Text = "XSL";
+            // 
+            // menuEditorInsertValueOf
+            // 
+            this.menuEditorInsertValueOf.Name = "menuEditorInsertValueOf";
+            this.menuEditorInsertValueOf.Size = new System.Drawing.Size(155, 22);
+            this.menuEditorInsertValueOf.Text = "value-of";
+            this.menuEditorInsertValueOf.Click += new System.EventHandler(this.menuEditorInsertValueOf_Click);
+            // 
+            // menuEditorInsertTemplate
+            // 
+            this.menuEditorInsertTemplate.Name = "menuEditorInsertTemplate";
+            this.menuEditorInsertTemplate.Size = new System.Drawing.Size(155, 22);
+            this.menuEditorInsertTemplate.Text = "template";
+            // 
+            // menuEditorInsertValueOfApplyTemplate
+            // 
+            this.menuEditorInsertValueOfApplyTemplate.Name = "menuEditorInsertValueOfApplyTemplate";
+            this.menuEditorInsertValueOfApplyTemplate.Size = new System.Drawing.Size(155, 22);
+            this.menuEditorInsertValueOfApplyTemplate.Text = "apply-template";
+            // 
+            // menuEditorApplyPrettyPrint
+            // 
+            this.menuEditorApplyPrettyPrint.Name = "menuEditorApplyPrettyPrint";
+            this.menuEditorApplyPrettyPrint.Size = new System.Drawing.Size(152, 22);
+            this.menuEditorApplyPrettyPrint.Text = "Pretty print";
+            this.menuEditorApplyPrettyPrint.Click += new System.EventHandler(this.menuEditorApplyPrettyPrint_Click);
             // 
             // tabDestination
             // 
@@ -195,7 +364,7 @@
             this.tabDestination.Location = new System.Drawing.Point(0, 0);
             this.tabDestination.Name = "tabDestination";
             this.tabDestination.SelectedIndex = 0;
-            this.tabDestination.Size = new System.Drawing.Size(198, 636);
+            this.tabDestination.Size = new System.Drawing.Size(252, 636);
             this.tabDestination.TabIndex = 2;
             this.tabDestination.SelectedIndexChanged += new System.EventHandler(this.tab_SelectedIndexChanged);
             // 
@@ -205,7 +374,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 23);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(190, 609);
+            this.tabPage4.Size = new System.Drawing.Size(244, 609);
             this.tabPage4.TabIndex = 0;
             this.tabPage4.Text = "Schema";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -213,10 +382,13 @@
             // treeDestinationSchema
             // 
             this.treeDestinationSchema.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeDestinationSchema.FullRowSelect = true;
             this.treeDestinationSchema.Location = new System.Drawing.Point(3, 3);
             this.treeDestinationSchema.Name = "treeDestinationSchema";
-            this.treeDestinationSchema.Size = new System.Drawing.Size(184, 603);
+            this.treeDestinationSchema.PathSeparator = "/";
+            this.treeDestinationSchema.Size = new System.Drawing.Size(238, 603);
             this.treeDestinationSchema.TabIndex = 1;
+            this.treeDestinationSchema.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeDestinationSchema_NodeMouseClick);
             // 
             // tabPage5
             // 
@@ -224,7 +396,7 @@
             this.tabPage5.Location = new System.Drawing.Point(4, 23);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(190, 633);
+            this.tabPage5.Size = new System.Drawing.Size(244, 607);
             this.tabPage5.TabIndex = 1;
             this.tabPage5.Text = "XML";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -234,7 +406,7 @@
             this.treeDestinationFile.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeDestinationFile.Location = new System.Drawing.Point(3, 3);
             this.treeDestinationFile.Name = "treeDestinationFile";
-            this.treeDestinationFile.Size = new System.Drawing.Size(184, 627);
+            this.treeDestinationFile.Size = new System.Drawing.Size(238, 601);
             this.treeDestinationFile.TabIndex = 2;
             // 
             // tabPage6
@@ -243,9 +415,39 @@
             this.tabPage6.Location = new System.Drawing.Point(4, 23);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(190, 633);
+            this.tabPage6.Size = new System.Drawing.Size(244, 607);
             this.tabPage6.TabIndex = 2;
             this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // contextMenuDestination
+            // 
+            this.contextMenuDestination.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuDestinationGenerateXML,
+            this.menuDestinationExpandAll,
+            this.menuDestinationCollapseAll});
+            this.contextMenuDestination.Name = "contextMenuDestination";
+            this.contextMenuDestination.Size = new System.Drawing.Size(149, 70);
+            // 
+            // menuDestinationGenerateXML
+            // 
+            this.menuDestinationGenerateXML.Name = "menuDestinationGenerateXML";
+            this.menuDestinationGenerateXML.Size = new System.Drawing.Size(148, 22);
+            this.menuDestinationGenerateXML.Text = "Generate XML";
+            this.menuDestinationGenerateXML.Click += new System.EventHandler(this.menuDestinationGenerateXML_Click);
+            // 
+            // menuDestinationExpandAll
+            // 
+            this.menuDestinationExpandAll.Name = "menuDestinationExpandAll";
+            this.menuDestinationExpandAll.Size = new System.Drawing.Size(148, 22);
+            this.menuDestinationExpandAll.Text = "Expand all";
+            this.menuDestinationExpandAll.Click += new System.EventHandler(this.menuExpandAllGeneric_Click);
+            // 
+            // menuDestinationCollapseAll
+            // 
+            this.menuDestinationCollapseAll.Name = "menuDestinationCollapseAll";
+            this.menuDestinationCollapseAll.Size = new System.Drawing.Size(148, 22);
+            this.menuDestinationCollapseAll.Text = "Collapse all";
+            this.menuDestinationCollapseAll.Click += new System.EventHandler(this.menuCollapseAllGeneric_Click);
             // 
             // MainForm
             // 
@@ -253,10 +455,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1014, 662);
             this.Controls.Add(this.FirstContainer);
-            this.Controls.Add(this.menuStrip1);
-            this.MainMenuStrip = this.menuStrip1;
+            this.Controls.Add(this.mainMenu);
+            this.MainMenuStrip = this.mainMenu;
             this.Name = "MainForm";
             this.Text = "XSLT Editor";
+            this.mainMenu.ResumeLayout(false);
+            this.mainMenu.PerformLayout();
             this.FirstContainer.Panel1.ResumeLayout(false);
             this.FirstContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.FirstContainer)).EndInit();
@@ -268,9 +472,11 @@
             this.SecondContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.SecondContainer)).EndInit();
             this.SecondContainer.ResumeLayout(false);
+            this.contextMenuEditor.ResumeLayout(false);
             this.tabDestination.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
             this.tabPage5.ResumeLayout(false);
+            this.contextMenuDestination.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -279,7 +485,7 @@
         #endregion
 
         private System.Windows.Forms.ImageList iconList;
-        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.MenuStrip mainMenu;
         private System.Windows.Forms.SplitContainer FirstContainer;
         private System.Windows.Forms.TabControl tabSource;
         private System.Windows.Forms.TabPage tabPage1;
@@ -295,6 +501,29 @@
         private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.TreeView treeDestinationFile;
         private System.Windows.Forms.TabPage tabPage6;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem xSLTToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem menuApplyXSLT;
+        private System.Windows.Forms.ToolStripMenuItem menuToggleValidateInput;
+        private System.Windows.Forms.ToolStripMenuItem menuToggleValidateOutput;
+        private System.Windows.Forms.ContextMenuStrip contextMenuDestination;
+        private System.Windows.Forms.ToolStripMenuItem menuDestinationGenerateXML;
+        private System.Windows.Forms.ToolStripMenuItem menuDestinationExpandAll;
+        private System.Windows.Forms.ToolStripMenuItem menuDestinationCollapseAll;
+        private System.Windows.Forms.ContextMenuStrip contextMenuEditor;
+        private System.Windows.Forms.ToolStripMenuItem xSLToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem menuEditorInsertValueOf;
+        private System.Windows.Forms.ToolStripMenuItem menuEditorInsertTemplate;
+        private System.Windows.Forms.ToolStripMenuItem menuEditorInsertValueOfApplyTemplate;
+        private System.Windows.Forms.ToolStripMenuItem menuEditorApplyPrettyPrint;
 
 
 

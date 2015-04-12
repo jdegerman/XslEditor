@@ -12,6 +12,14 @@ namespace XslEditor
 {
     internal static class UIService
     {
+        public static void ExpandAll(TreeNode node)
+        {
+            node.ExpandAll();
+        }
+        public static void CollapseAll(TreeNode node)
+        {
+            node.Collapse(false);
+        }
         public static void OpenFile(string filter, Action<string> onOpen)
         {
             using(var ofd = new OpenFileDialog { Filter = filter, Multiselect = false })
@@ -43,6 +51,34 @@ namespace XslEditor
         {
             foreach (var item in array)
                 onEach(item);
+        }
+        public static string GenerateXml(TreeNode root)
+        {
+            var tag = root.Tag.ToString().Substring("XML_ELEMENT".Length);
+            var xml = "<" + tag;
+            var attributes = new List<string>();
+            var children = new List<string>();
+            foreach(TreeNode child in root.Nodes)
+            {
+                if (child.Text.StartsWith("@"))
+                {
+                    attributes.Add(child.Tag.ToString() + "=\"\"");
+                }
+                else if (child.Text.StartsWith("#"))
+                {
+
+                }
+                else
+                {
+                    children.Add(GenerateXml(child));
+                }
+            }
+            if (attributes.Count > 0)
+                xml += " " + string.Join(" ", attributes);
+            if (children.Count == 0)
+                return xml + " />";
+            else
+                return xml + ">" + string.Join("", children) + "</" + tag + ">";
         }
         public static void PopulateInstanceTree(TreeView target, Func<string, XmlReader> readerSource, string instancePath)
         {
@@ -135,7 +171,8 @@ namespace XslEditor
         }
         private static void AddSchemaNodes(TreeNodeCollection target, XmlSchemaElement element)
         {
-            var root = target.Add(element.QualifiedName.Name + " : " + (element.SchemaTypeName.IsEmpty ? "" : element.SchemaTypeName.Name + " / ") + GetOccurs(element.MinOccursString) + " / " + GetOccurs(element.MaxOccursString));
+            var root = target.Add(element.QualifiedName.Name + " : " + GetElementType(element) + GetOccurs(element.MinOccursString) + " / " + GetOccurs(element.MaxOccursString));
+            root.Tag = "XML_ELEMENT" + element.QualifiedName.Name;
             if(element.ElementSchemaType is XmlSchemaComplexType)
             {
                 ProcessComplexType(root.Nodes, (XmlSchemaComplexType)element.ElementSchemaType);
@@ -152,15 +189,30 @@ namespace XslEditor
             {
                 target.Add(simpleType.Name + " / " + simpleType.TypeCode.ToString());
             }
+            if(simpleType.DerivedBy == XmlSchemaDerivationMethod.Restriction)
+            {
+                var r = (XmlSchemaSimpleTypeRestriction)simpleType.Content;
+                if (r.Facets.Count > 0)
+                {
+                    var restr = target.Add("##Restriction");
+                    foreach (XmlSchemaObject rs in r.Facets)
+                    {
+                        var facet = (XmlSchemaFacet)rs;
+                        var type = facet.GetType();
+                        object facetType = "";
+                        var facetTypeProperty = type.GetProperty("FacetType", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public);
+                        if (facetTypeProperty != null)
+                        {
+                            facetType = facetTypeProperty.GetValue(facet);
+                        }
+                        restr.Nodes.Add(facetType.ToString() + " : " + facet.Value);
+                    }
+                }
+            }
         }
         private static void ProcessComplexType(TreeNodeCollection target, XmlSchemaComplexType complexType)
         {
-            IDictionaryEnumerator enumerator = complexType.AttributeUses.GetEnumerator();
-            while(enumerator.MoveNext())
-            {
-                var attribute = (XmlSchemaAttribute)enumerator.Value;
-                target.Add("@" + attribute.QualifiedName.Name + " / " + GetAttributeType(attribute));
-            }
+            ProcessComplexTypeAttributes(target, complexType);
             if (complexType.ContentTypeParticle is XmlSchemaSequence)
             {
                 ProcessCollection(target, ((XmlSchemaSequence)complexType.ContentTypeParticle).Items);
@@ -177,6 +229,41 @@ namespace XslEditor
             {
             }
         }
+
+        private static void ProcessComplexTypeAttributes(TreeNodeCollection target, XmlSchemaComplexType complexType)
+        {
+            IDictionaryEnumerator enumerator = complexType.AttributeUses.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                var attribute = (XmlSchemaAttribute)enumerator.Value;
+                var attr = target.Add("@" + attribute.QualifiedName.Name + " / " + GetAttributeType(attribute));
+                attr.Tag = attribute.QualifiedName.Name;
+                if (attribute.AttributeSchemaType.DerivedBy == XmlSchemaDerivationMethod.Restriction)
+                {
+                    var r = (XmlSchemaSimpleTypeRestriction)attribute.AttributeSchemaType.Content;
+                    if (r.Facets.Count > 0)
+                    {
+                        var restr = attr.Nodes.Add("##Restriction");
+                        foreach (XmlSchemaObject rs in r.Facets)
+                        {
+                            var facet = (XmlSchemaFacet)rs;
+                            var type = facet.GetType();
+                            object facetType = "";
+                            var facetTypeProperty = type.GetProperty("FacetType", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public);
+                            if (facetTypeProperty != null)
+                            {
+                                facetType = facetTypeProperty.GetValue(facet);
+                            }
+                            restr.Nodes.Add(facetType.ToString() + " : " + facet.Value);
+                        }
+                    }
+                }
+                else
+                {
+
+                }
+            }
+        }
         private static void ProcessCollection(TreeNodeCollection target, XmlSchemaObjectCollection collection)
         {
             foreach(XmlSchemaObject item in collection)
@@ -187,14 +274,22 @@ namespace XslEditor
                 }
             }
         }
+        private static string GetElementType(XmlSchemaElement element)
+        {
+            if (!element.SchemaTypeName.IsEmpty)
+                return element.SchemaTypeName.Name + " / ";
+            if (element.ElementSchemaType.Datatype != null)
+                return element.ElementSchemaType.Datatype.TypeCode.ToString() + " / ";
+            return "";
+        }
         private static string GetAttributeType(XmlSchemaAttribute attribute)
         {
             if (attribute.SchemaType != null && attribute.SchemaType.Name != null)
                 return attribute.SchemaType.Name;
-            if (attribute.AttributeSchemaType != null && attribute.AttributeSchemaType.BaseXmlSchemaType != null)
-                return attribute.AttributeSchemaType.BaseXmlSchemaType.Datatype.TypeCode.ToString();
             if (attribute.SchemaTypeName != null && !attribute.SchemaTypeName.IsEmpty)
                 return attribute.SchemaTypeName.Name;
+            if (attribute.AttributeSchemaType != null && attribute.AttributeSchemaType.BaseXmlSchemaType != null)
+                return attribute.AttributeSchemaType.BaseXmlSchemaType.Datatype.TypeCode.ToString();
             return "##any";
         }
         private static string GetFriendlyName(string name)
