@@ -125,7 +125,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAACS
-        CAAAAk1TRnQBSQFMAwEBAAEwAQABMAEAARABAAEQAQAE/wEJAQAI/wFCAU0BNgEEBgABNgEEAgABKAMA
+        CAAAAk1TRnQBSQFMAwEBAAE4AQABOAEAARABAAEQAQAE/wEJAQAI/wFCAU0BNgEEBgABNgEEAgABKAMA
         AUADAAEQAwABAQEAAQgGAAEEGAABgAIAAYADAAKAAQABgAMAAYABAAGAAQACgAIAA8ABAAHAAdwBwAEA
         AfABygGmAQABMwUAATMBAAEzAQABMwEAAjMCAAMWAQADHAEAAyIBAAMpAQADVQEAA00BAANCAQADOQEA
         AYABfAH/AQACUAH/AQABkwEAAdYBAAH/AewBzAEAAcYB1gHvAQAB1gLnAQABkAGpAa0CAAH/ATMDAAFm
@@ -170,6 +170,23 @@
   <metadata name="contextMenuEditor.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>406, 17</value>
   </metadata>
+  <data name="xslEditor.Text" xml:space="preserve">
+    <value>&lt;?xml version="1.0"?&gt;
+&lt;xsl:stylesheet
+	version="1.0"
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	xmlns:msxsl="urn:schemas-microsoft-com:xslt"
+	xmlns:ext="urn:custom-code"
+	exclude-result-prefixes="xsl msxsl ext"&gt;
+&lt;xsl:template match="/"&gt;
+
+&lt;/xsl:template&gt;
+&lt;msxsl:script language="C#" implements-prefix="ext"&gt;
+&lt;![CDATA[
+]]&gt;
+&lt;/msxsl:script&gt; 
+&lt;/xsl:stylesheet&gt;</value>
+  </data>
   <metadata name="contextMenuDestination.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>220, 17</value>
   </metadata>

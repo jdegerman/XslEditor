@@ -58,7 +58,7 @@
             this.xSLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuEditorInsertValueOf = new System.Windows.Forms.ToolStripMenuItem();
             this.menuEditorInsertTemplate = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuEditorInsertValueOfApplyTemplate = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuEditorInsertApplyTemplate = new System.Windows.Forms.ToolStripMenuItem();
             this.menuEditorApplyPrettyPrint = new System.Windows.Forms.ToolStripMenuItem();
             this.tabDestination = new System.Windows.Forms.TabControl();
             this.tabPage4 = new System.Windows.Forms.TabPage();
@@ -70,6 +70,8 @@
             this.menuDestinationGenerateXML = new System.Windows.Forms.ToolStripMenuItem();
             this.menuDestinationExpandAll = new System.Windows.Forms.ToolStripMenuItem();
             this.menuDestinationCollapseAll = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuEditorInsertIf = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuEditorInsertChoose = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FirstContainer)).BeginInit();
             this.FirstContainer.Panel1.SuspendLayout();
@@ -180,21 +182,21 @@
             // 
             this.menuApplyXSLT.Name = "menuApplyXSLT";
             this.menuApplyXSLT.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.menuApplyXSLT.Size = new System.Drawing.Size(148, 22);
+            this.menuApplyXSLT.Size = new System.Drawing.Size(152, 22);
             this.menuApplyXSLT.Text = "Apply";
             this.menuApplyXSLT.Click += new System.EventHandler(this.menuApplyXSLT_Click);
             // 
             // menuToggleValidateInput
             // 
             this.menuToggleValidateInput.Name = "menuToggleValidateInput";
-            this.menuToggleValidateInput.Size = new System.Drawing.Size(148, 22);
+            this.menuToggleValidateInput.Size = new System.Drawing.Size(152, 22);
             this.menuToggleValidateInput.Text = "Validate input";
             this.menuToggleValidateInput.Click += new System.EventHandler(this.menuToggleValidateInput_Click);
             // 
             // menuToggleValidateOutput
             // 
             this.menuToggleValidateOutput.Name = "menuToggleValidateOutput";
-            this.menuToggleValidateOutput.Size = new System.Drawing.Size(148, 22);
+            this.menuToggleValidateOutput.Size = new System.Drawing.Size(152, 22);
             this.menuToggleValidateOutput.Text = "Validate result";
             this.menuToggleValidateOutput.Click += new System.EventHandler(this.menuToggleValidateOutput_Click);
             // 
@@ -306,9 +308,7 @@
             this.xslEditor.Name = "xslEditor";
             this.xslEditor.Size = new System.Drawing.Size(539, 636);
             this.xslEditor.TabIndex = 0;
-            this.xslEditor.Text = "<?xml version=\"1.0\"?>\r\n<xsl:stylesheet version=\"1.0\" xmlns:xsl=\"http://www.w3.org" +
-    "/1999/XSL/Transform\">\r\n<xsl:template match=\"/\">\r\n\r\n</xsl:template>\r\n</xsl:styles" +
-    "heet>";
+            this.xslEditor.Text = resources.GetString("xslEditor.Text");
             // 
             // contextMenuEditor
             // 
@@ -323,7 +323,9 @@
             this.xSLToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuEditorInsertValueOf,
             this.menuEditorInsertTemplate,
-            this.menuEditorInsertValueOfApplyTemplate});
+            this.menuEditorInsertApplyTemplate,
+            this.menuEditorInsertIf,
+            this.menuEditorInsertChoose});
             this.xSLToolStripMenuItem.Name = "xSLToolStripMenuItem";
             this.xSLToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.xSLToolStripMenuItem.Text = "XSL";
@@ -331,21 +333,23 @@
             // menuEditorInsertValueOf
             // 
             this.menuEditorInsertValueOf.Name = "menuEditorInsertValueOf";
-            this.menuEditorInsertValueOf.Size = new System.Drawing.Size(155, 22);
+            this.menuEditorInsertValueOf.Size = new System.Drawing.Size(160, 22);
             this.menuEditorInsertValueOf.Text = "value-of";
             this.menuEditorInsertValueOf.Click += new System.EventHandler(this.menuEditorInsertValueOf_Click);
             // 
             // menuEditorInsertTemplate
             // 
             this.menuEditorInsertTemplate.Name = "menuEditorInsertTemplate";
-            this.menuEditorInsertTemplate.Size = new System.Drawing.Size(155, 22);
+            this.menuEditorInsertTemplate.Size = new System.Drawing.Size(160, 22);
             this.menuEditorInsertTemplate.Text = "template";
+            this.menuEditorInsertTemplate.Click += new System.EventHandler(this.menuEditorInsertTemplate_Click);
             // 
-            // menuEditorInsertValueOfApplyTemplate
+            // menuEditorInsertApplyTemplate
             // 
-            this.menuEditorInsertValueOfApplyTemplate.Name = "menuEditorInsertValueOfApplyTemplate";
-            this.menuEditorInsertValueOfApplyTemplate.Size = new System.Drawing.Size(155, 22);
-            this.menuEditorInsertValueOfApplyTemplate.Text = "apply-template";
+            this.menuEditorInsertApplyTemplate.Name = "menuEditorInsertApplyTemplate";
+            this.menuEditorInsertApplyTemplate.Size = new System.Drawing.Size(160, 22);
+            this.menuEditorInsertApplyTemplate.Text = "apply-templates";
+            this.menuEditorInsertApplyTemplate.Click += new System.EventHandler(this.menuEditorInsertValueOfApplyTemplate_Click);
             // 
             // menuEditorApplyPrettyPrint
             // 
@@ -449,6 +453,20 @@
             this.menuDestinationCollapseAll.Text = "Collapse all";
             this.menuDestinationCollapseAll.Click += new System.EventHandler(this.menuCollapseAllGeneric_Click);
             // 
+            // menuEditorInsertIf
+            // 
+            this.menuEditorInsertIf.Name = "menuEditorInsertIf";
+            this.menuEditorInsertIf.Size = new System.Drawing.Size(160, 22);
+            this.menuEditorInsertIf.Text = "if";
+            this.menuEditorInsertIf.Click += new System.EventHandler(this.menuEditorInsertIf_Click);
+            // 
+            // menuEditorInsertChoose
+            // 
+            this.menuEditorInsertChoose.Name = "menuEditorInsertChoose";
+            this.menuEditorInsertChoose.Size = new System.Drawing.Size(160, 22);
+            this.menuEditorInsertChoose.Text = "choose";
+            this.menuEditorInsertChoose.Click += new System.EventHandler(this.menuEditorInsertChoose_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -522,8 +540,10 @@
         private System.Windows.Forms.ToolStripMenuItem xSLToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem menuEditorInsertValueOf;
         private System.Windows.Forms.ToolStripMenuItem menuEditorInsertTemplate;
-        private System.Windows.Forms.ToolStripMenuItem menuEditorInsertValueOfApplyTemplate;
+        private System.Windows.Forms.ToolStripMenuItem menuEditorInsertApplyTemplate;
         private System.Windows.Forms.ToolStripMenuItem menuEditorApplyPrettyPrint;
+        private System.Windows.Forms.ToolStripMenuItem menuEditorInsertIf;
+        private System.Windows.Forms.ToolStripMenuItem menuEditorInsertChoose;
 
 
 
